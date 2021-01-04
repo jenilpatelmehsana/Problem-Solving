@@ -39,42 +39,69 @@ void solve() {
 	cin>>n>>k;
 	vr<int> arr(n);
 	read(arr);
-	sort(arr.begin(),arr.end(),greater<int>());
+	int sum = 0;
+	for(int x : arr)
+	{
+		sum += x;
+	}
+	if(sum < 2 * k)
+	{
+		cout<<-1<<endl;
+		return;
+	}
 	int a = 0, b = 0;
-	if(n >= 1)
-		a = arr[0];
-	if(n >= 2)
-		b = arr[1];
-	int total = 0;
-	int i = 2;
-	while(true)
+	int i;
+	vr<int> apush, bpush;
+	for(i = 0; i < n; ++i)
 	{
 		if(a >= k && b >= k)
 		{
 			break;
 		}
-		if(i >= n)
-		{
-			cout<<-1<<endl;
-			return;
-		}
 		if(a < b)
 		{
-			a += arr[i++];
+			int index = i;
+			int diff = INT_MAX;
+			for(int j = i; j < n; ++j)
+			{
+				if(diff > k - arr[j])
+				{
+					index = j;
+					diff = k - arr[j];
+				}
+			}
+			swap(arr[i] , arr[index]);
+			a += arr[i];
+			apush.push_back(arr[i]);
 		}
 		else
 		{
-			b += arr[i++];
+			int index = i;
+			int diff = INT_MAX;
+			for(int j = i; j < n; ++j)
+			{
+				if(diff > k - arr[j])
+				{
+					index = j;
+					diff = k - arr[j];
+				}
+			}
+			swap(arr[i] , arr[index]);
+			b += arr[i];
+			bpush.push_back(arr[i]);
 		}
 	}
 	if(a >= k && b >= k)
 	{
-		cout<<i+1<<endl;
+		cout<<i<<endl;
 	}
 	else
 	{
 		cout<<-1<<endl;
 	}
+	for(int x : arr)
+		cout<<x<<' ';
+	cout<<endl;
 }
 
 int32_t main() {

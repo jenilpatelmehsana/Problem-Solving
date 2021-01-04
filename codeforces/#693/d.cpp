@@ -1,0 +1,127 @@
+#include<bits/stdc++.h>
+#define int long long 
+#define vr vector
+#define FOR(i,x,y) for(int i = x; i < y; ++i)
+using namespace std;
+
+template<class T> void read(vr<T> &arr)
+{
+	for(auto &x: arr)
+		cin>>x;
+}
+
+template<class T> void read2d(vr<vr<T>> &arr)
+{
+	for(auto &x: arr)
+	{
+		for(auto &y : x)
+		{
+			cin>>y;
+		}
+	}
+}
+void printYes() {
+	cout<<"Yes"<<endl;
+}
+void printNo() {
+	cout<<"No"<<endl;
+}
+void printYES() {
+	cout<<"YES"<<endl;
+}
+void printNO() {
+	cout<<"NO"<<endl;
+}
+
+void solve() {
+	int n;
+	cin>>n;
+	vr<int> even,odd;
+	int x;
+	for(int i = 0;i < n; ++i)
+	{
+		cin>>x;
+		if(x & 1)
+		{
+			odd.push_back(x);
+		}
+		else
+		{
+			even.push_back(x);
+		}
+	}
+	sort(even.begin(), even.end());
+	sort(odd.begin(), odd.end());
+	int evenLimit = even.size();
+	int oddLimit = odd.size();
+	int a = 0 ,b = 0;
+	int i = 1;
+	while(i <= n)
+	{
+		if(i & 1)
+		{
+			if(evenLimit == 0)
+			{
+				oddLimit--;
+			}
+			else
+			{
+				if(oddLimit == 0 || even[evenLimit - 1] > odd[oddLimit - 1])
+				{
+					a += even[evenLimit - 1];
+					evenLimit--;
+				}
+				else
+				{
+					oddLimit--;
+				}
+			}
+		}
+		else
+		{
+			if(oddLimit == 0)
+			{
+				evenLimit--;
+			}
+			else
+			{
+				if(evenLimit == 0 || odd[oddLimit - 1] > even[evenLimit - 1])
+				{
+					b += odd[oddLimit - 1];
+					oddLimit--;
+				}
+				else
+				{
+					evenLimit--;
+				}
+			}
+		}
+		i++;
+	}
+	if(a == b)
+	{
+		cout<<"Tie"<<endl;
+		return;
+	}
+	if(a > b)
+	{
+		cout<<"Alice"<<endl;
+	}
+	else
+	{
+		cout<<"Bob"<<endl;
+	}
+}
+
+int32_t main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int t = 1;
+	cin>>t;
+	while(t--)
+	{
+		solve();
+	}
+	return 0;
+}
