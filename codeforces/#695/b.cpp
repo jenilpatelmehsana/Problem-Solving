@@ -1,7 +1,6 @@
 #include<bits/stdc++.h>
 #define int long long 
 #define vr vector
-#define all(x) (x.begin(), x.end())
 #define FOR(i,x,y) for(int i = x; i < y; ++i)
 using namespace std;
 
@@ -35,58 +34,30 @@ void printNO() {
 }
 
 void solve() {
-	int n , k;
-	cin>>n>>k;
-	vector<int> arr(n);
+	int n;
+	cin>>n;
+	vr<int> arr(n);
 	read(arr);
-	arr[n] = 0;
-	sort(arr.begin(), arr.end(), greater<int>());
-	int a = 0;
-	if(n > 0)
-		a = arr[0];
-	int b = 0;
-	if(n > 1)
-		b = arr[1];
-	int ans = 2;
-	if(n < 3)
+	for(int i = 1; i < n - 1; ++i)
 	{
-		if(a >= k && b >= k)
-			cout<<2<<endl;
-		else
-			cout<<-1<<endl;
-	}
-	for(int i = 2; i < n; ++i)
-	{
-		if(a >= k && b >= k)
+		if((arr[i] > arr[i + 1] && arr[i] > arr[i - 1]) || (arr[i] < arr[i + 1] && arr[i] < arr[i - 1]))
+		{
+			arr[i] = max(arr[i - 1] , arr[i + 1]);
 			break;
-		if(a >= k)
-		{
-			b += arr[i];
 		}
-		else
-		{
-			if(b >= k)
-			{
-				a += arr[i];
-			}
-			else
-			{
-				if(abs(k - arr[i] + a) > abs(k - arr[i] + b))
-				{
-					a += arr[i];
-				}
-				else
-				{
-					b += arr[i];
-				}
-			}
-		}
-		ans++;
 	}
-	if(a >= k && b >= k)
-		cout<<ans<<endl;
+	int ans = 0;
+	for(int i = 1; i < n - 1; ++i)
+	{
+		if((arr[i] > arr[i + 1] && arr[i] > arr[i - 1]) || (arr[i] < arr[i + 1] && arr[i] < arr[i - 1]))
+		{
+			ans++;
+		}
+	}
+	if(ans == 0)
+		cout<<0<<endl;
 	else
-		cout<<-1<<endl;
+		cout<<--ans<<endl;
 }
 
 int32_t main() {

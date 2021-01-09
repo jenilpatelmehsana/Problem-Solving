@@ -34,46 +34,29 @@ void printNO() {
 }
 
 void solve() {
-	int n,x;
-	cin>>n>>x;
-	vr<pair<int,int>> arr(x);
-	for(int i = 0; i < x; ++i)
+	int n;
+	cin>>n;
+	int i = 0;
+	int d = 9;
+	while(n--)
 	{
-		cin>>arr[i].first>>arr[i].second;
-	}
-	vr<int> one(n , 0),two(n , 0);
-	for(int i = 0; i < n; ++i)
-	{
-		if(i != 0)
+		if(i < 9)
 		{
-			if(arr.find(make_pair(1,i)) == arr.end())
-			{
-				one[i] = 1;
-			}
-			if(arr.find(make_pair(2,i)) == arr.end())
-			{
-				two[i] = 1;
-			}
-			one[i] += one[i - 1];
-			two[i] += two[i - 1];
+			cout<<d--;
 		}
 		else
 		{
-			if(arr.find(make_pair(1,i)) == arr.end())
-			{
-				one[i] = 1;
-			}
-			if(arr.find(make_pair(2,i)) == arr.end())
-			{
-				two[i] = 1;
-			}
+			if(d == -1)
+				i = 1;
+			if(d == 10)
+				d = 0;
+			cout<<d++;
 		}
+		i++;
 	}
-	for(int i = 0; i < n; ++i)
-	{
-		
-	}
-}
+	cout<<endl;
+}	
+
 int32_t main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);

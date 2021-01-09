@@ -35,79 +35,59 @@ void printNO() {
 }
 
 void solve() {
-	int n,k;
+	int n , k;
 	cin>>n>>k;
-	vr<int> arr(n);
+	vector<int> arr(n);
 	read(arr);
-	int sum = 0;
-	for(int x : arr)
-	{
-		sum += x;
-	}
-	if(sum < 2 * k)
-	{
-		cout<<-1<<endl;
-		return;
-	}
-	int a = 0, b = 0;
-	int i;
-	vr<int> apush, bpush;
-	for(i = 0; i < n; ++i)
+	arr[n] = 0;
+	sort(arr.begin(), arr.end(), greater<int>());
+	int a = 0;
+	if(n > 0)
+		a = arr[0];
+	int b = 0;
+	if(n > 1)
+		b = arr[1];
+	int ans = 2;
+	if(n < 3)
 	{
 		if(a >= k && b >= k)
-		{
+			cout<<2<<endl;
+		else
+			cout<<-1<<endl;
+		return;
+	}
+	for(int i = 2; i < n; ++i)
+	{
+		if(a >= k && b >= k)
 			break;
-		}
-		if(a < b)
+		if(a >= k)
 		{
-			int index = i;
-			int diff = INT_MAX;
-			for(int j = i; j < n; ++j)
-			{
-				if(diff > k - arr[j])
-				{
-					index = j;
-					diff = k - arr[j];
-				}
-			}
-			swap(arr[i] , arr[index]);
-			a += arr[i];
-			apush.push_back(arr[i]);
+			b += arr[i];
 		}
 		else
 		{
-			int index = i;
-			int diff = INT_MAX;
-			for(int j = i; j < n; ++j)
+			if(b >= k)
 			{
-				if(diff > k - arr[j])
+				a += arr[i];
+			}
+			else
+			{
+				if(abs(k - arr[i] + a) > abs(k - arr[i] + b))
 				{
-					index = j;
-					diff = k - arr[j];
+					a += arr[i];
+				}
+				else
+				{
+					b += arr[i];
 				}
 			}
-			swap(arr[i] , arr[index]);
-			b += arr[i];
-			bpush.push_back(arr[i]);
 		}
+		ans++;
 	}
 	if(a >= k && b >= k)
-	{
-		cout<<i<<endl;
-	}
+		cout<<ans<<endl;
 	else
-	{
 		cout<<-1<<endl;
-	}
-	for(int x : arr)
-		cout<<x<<' ';
-	cout<<endl;
-	for(int x : apush)
-		cout<<x<<' ';
-	cout<<endl;
-	for(int x : bpush)
-		cout<<x<<' ';
-	cout<<endl;
 }
 
 int32_t main() {
