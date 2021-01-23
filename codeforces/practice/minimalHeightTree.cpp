@@ -1,8 +1,10 @@
 #include<bits/stdc++.h>
+#include<chrono>
 #define int long long 
 #define vr vector
 #define FOR(i,x,y) for(int i = x; i < y; ++i)
 using namespace std;
+using namespace std::chrono;
 
 template<class T> void read(vr<T> &arr)
 {
@@ -33,25 +35,36 @@ void printNO() {
 	cout<<"NO"<<endl;
 }
 
+const int INF = 1e7  + 5;
+int arr[INF];
+
+int fib(int x)
+{
+	if(arr[x] != -1)
+		return arr[x];
+	else
+		arr[x] = fib(x - 1) + fib(x -2);
+	return arr[x];
+}
+
 void solve() {
 	int n;
 	cin>>n;
+	fib(n);
 	int x;
-	for(int i = 0; i < n; ++i)
+	if(n % 2)
 	{
-		cin>>x;
+		x = arr[n/2];
 	}
-	int ans = 0;
-	if(n == 2)
+	else
 	{
-		cout<<2<<endl;
-		return;
+		x = arr[n / 2 + 1];
 	}
-	while(pow(2,ans) + 1 < n)
+	while(x > 9)
 	{
-		ans++;
+		x %= 10;
 	}
-	cout<<ans<<endl;
+	cout<<x<<endl;
 }
 
 int32_t main() {
@@ -60,6 +73,10 @@ int32_t main() {
 	cout.tie(0);
 	int t = 1;
 	cin>>t;
+	fill(arr, arr + INF, -1);
+	arr[0] = 0;
+	arr[1] = 1;
+	arr[2] = 1;
 	while(t--)
 	{
 		solve();
